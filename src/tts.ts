@@ -75,7 +75,6 @@ export default async function TTS(
       },
       res => {
         let data = "";
-        const isError = false;
 
         res.setEncoding("binary");
 
