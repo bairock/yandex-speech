@@ -19,16 +19,28 @@ type TopicsTR = {
   topic: "general" | "maps";
 };
 
+type Topics = TopicsEN | TopicsRU | TopicsTR;
+
 export type YandexSTTParams = {
   profanityFilter?: boolean;
   format?: "lpcm" | "oggopus";
   sampleRateHertz?: 48000 | 16000 | 8000;
   folderId?: string;
   auth: string;
-} & (TopicsEN | TopicsRU | TopicsTR);
+} & Topics;
 
 const apiUrl = "https://stt.api.cloud.yandex.net/speech/v1/stt:recognize";
 
+/**
+ * Function to recognize speech to text
+ *
+ * @param {Buffer} audio
+ * @param {YandexSTTParams} params
+ *
+ * @returns {string} - result of recognition
+ *
+ * @see https://cloud.yandex.ru/docs/speechkit/stt/request
+ */
 export default function STT(
   audio: Buffer,
   params: YandexSTTParams
@@ -40,7 +52,7 @@ export default function STT(
       topic: "general",
       format: "oggopus",
       sampleRateHertz: 48000,
-      ...params
+      ...params,
     };
 
     const stringifiedParams = stringify(options);
@@ -55,16 +67,16 @@ export default function STT(
               : "vnd.wave; codec=lpcm",
           Accept: "application/json",
           Authorization: options.auth,
-          "User-Agent": `${name}/${version}`
+          "User-Agent": `${name}/${version}`,
         },
-        method: "POST"
+        method: "POST",
       },
-      res => {
+      (res) => {
         res.setEncoding("utf8");
 
         let data = "";
 
-        res.on("data", chunk => {
+        res.on("data", (chunk) => {
           data += chunk;
         });
         res.on("error", reject);

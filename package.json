@@ -1,8 +1,8 @@
 {
   "name": "yandex-speech-promise",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Promise based implementation of Yandex Speech Kit API",
-  "main": "index.js",
+  "main": "./index.js",
   "types": "./index.d.ts",
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   },
   "files": [
     "dist/",
+    "types/",
     "index.d.ts",
     "index.js"
   ],

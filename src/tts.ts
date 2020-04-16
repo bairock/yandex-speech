@@ -4,7 +4,7 @@ import { stringify } from "querystring";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { name, version } = require("../package.json");
 
-type YanexVoices =
+type VoiceActors =
   | "oksana"
   | "jane"
   | "omazh"
@@ -20,10 +20,10 @@ type YanexVoices =
 export type YandexTTSParams = {
   ssml?: boolean;
   lang?: "ru-RU" | "en-US" | "tr-TR";
-  voice?: YanexVoices;
-  emotion?: "good" | "neutral" | "evil";
+  voice?: VoiceActors;
+  emotion?: "neutral" | "good" | "evil";
   speed?: number;
-  format?: "lpcm" | "oggopus";
+  format?: "oggopus" | "lpcm";
   sampleRateHertz?: 48000 | 16000 | 8000;
   folderId?: string;
   auth: string;
@@ -31,6 +31,16 @@ export type YandexTTSParams = {
 
 const apiUrl = "https://tts.api.cloud.yandex.net/speech/v1/tts:synthesize";
 
+/**
+ * Function to convert text(or ssml) to Voice
+ *
+ * @param {string} text Plain text (or ssml) on Russian, English or Turkish
+ * @param {YandexTTSParams} params Request params for voice acting
+ *
+ * @returns {Buffer} Voice in format ogg-opus or wav-lpcm
+ *
+ * @see https://cloud.yandex.ru/docs/speechkit/tts/request
+ */
 export default async function TTS(
   text: string,
   params: YandexTTSParams
@@ -43,7 +53,7 @@ export default async function TTS(
     format: "oggopus",
     sampleRateHertz: 48000,
     emotion: "neutral",
-    ...params
+    ...params,
   };
 
   const textParamName = options.ssml ? "ssml" : "text";
@@ -55,7 +65,7 @@ export default async function TTS(
     format: options.format,
     sampleRateHertz: options.sampleRateHertz,
     emotion: options.emotion,
-    folderId: options.folderId
+    folderId: options.folderId,
   });
 
   return new Promise((resolve, reject) => {
@@ -70,15 +80,15 @@ export default async function TTS(
               : "vnd.wave; codec=lpcm",
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization: options.auth,
-          "User-Agent": `${name}/${version}`
-        }
+          "User-Agent": `${name}/${version}`,
+        },
       },
-      res => {
+      (res) => {
         let data = "";
 
         res.setEncoding("binary");
 
-        res.on("data", chunk => {
+        res.on("data", (chunk) => {
           // console.log(chunk);
           data += chunk;
         });
