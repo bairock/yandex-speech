@@ -4,30 +4,15 @@ import { stringify } from "querystring";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { name, version } = require("../package.json");
 
-type TopicsRU = {
-  lang: "ru-RU";
-  topic: "general" | "general:rc";
-};
-
-type TopicsEN = {
-  lang: "en-US";
-  topic: "general" | "maps";
-};
-
-type TopicsTR = {
-  lang: "tr-TR";
-  topic: "general" | "maps";
-};
-
-type Topics = TopicsEN | TopicsRU | TopicsTR;
-
 export type YandexSTTParams = {
   profanityFilter?: boolean;
   format?: "lpcm" | "oggopus";
   sampleRateHertz?: 48000 | 16000 | 8000;
   folderId?: string;
   auth: string;
-} & Topics;
+  lang?: "ru-RU" | "en-US" | "tr-TR";
+  topic?: "general" | "general:rc" | "maps";
+}
 
 const apiUrl = "https://stt.api.cloud.yandex.net/speech/v1/stt:recognize";
 

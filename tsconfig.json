@@ -57,5 +57,5 @@
     "resolveJsonModule": true
     // "declarationDir": "./types/"
   },
-  "exclude": ["dist/**/*", "index.d.ts"]
+ 
 }

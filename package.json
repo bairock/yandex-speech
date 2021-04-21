@@ -1,21 +1,24 @@
 {
   "name": "yandex-speech-promise",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "description": "Promise based implementation of Yandex Speech Kit API",
-  "main": "./index.js",
-  "types": "./index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "typings": "./dist/index.d.ts",
+  "type": "commonjs",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xxhax-team/yandex-speech-promise.git"
+    "url": "git+https://github.com/AlexXanderGrib/yandex-speech-promise.git"
   },
-  "author": "XXHAX Team <pockomhadzzop@gmail.com>",
-  "license": "GPL-3.0",
+  "author": "AlexXanderGrib <me@alexxgrib.me> (https://alexxgrib.me)",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/xxhax-team/yandex-speech-promise/issues"
+    "url": "https://github.com/AlexXanderGrib/yandex-speech-promise/issues"
   },
-  "homepage": "https://github.com/xxhax-team/yandex-speech-promise#readme",
+  "homepage": "https://github.com/AlexXanderGrib/yandex-speech-promise#readme",
   "scripts": {
-    "prepublish": "tsc",
+    "build": "rm -rf dist && tsc --project ./tsconfig.json",
+    "prepublishOnly": "npm run build",
     "dev": "tsc -w"
   },
   "files": [
@@ -35,17 +38,18 @@
     "speechkit"
   ],
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.8.0",
-    "@typescript-eslint/parser": "^2.8.0",
-    "eslint": "^6.6.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-config-prettier": "^6.7.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-prettier": "^3.1.1",
-    "husky": "^3.1.0",
-    "lint-staged": "^9.4.3",
-    "prettier": "^1.19.1",
-    "typescript": "^3.7.2"
+    "@types/node": "10",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1",
+    "typescript": "^4.2.4"
   },
   "dependencies": {},
   "lint-staged": {
@@ -61,12 +65,16 @@
       "airbnb-base",
       "plugin:@typescript-eslint/recommended",
       "prettier",
-      "prettier/@typescript-eslint"
+      "prettier/@typescript-eslint",
+      "plugin:import/typescript"
     ],
     "parser": "@typescript-eslint/parser",
     "plugins": [
       "@typescript-eslint"
-    ]
+    ],
+    "rules": {
+      "import/extensions": "off"
+    }
   },
   "engines": {
     "node": ">10"
