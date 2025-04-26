@@ -23,7 +23,7 @@ export type YandexTTSParams = {
   voice?: VoiceActors;
   emotion?: "neutral" | "good" | "evil";
   speed?: number;
-  format?: "oggopus" | "lpcm";
+  format?: "oggopus" | "lpcm"| "wav";
   sampleRateHertz?: 48000 | 16000 | 8000;
   folderId?: string;
   auth: string;
