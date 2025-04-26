@@ -6,7 +6,7 @@ const { name, version } = require("../package.json");
 
 export type YandexSTTParams = {
   profanityFilter?: boolean;
-  format?: "lpcm" | "oggopus";
+  format?: "lpcm" | "oggopus"| "wav";
   sampleRateHertz?: 48000 | 16000 | 8000;
   folderId?: string;
   auth: string;
